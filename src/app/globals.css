@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #1B263B;
+  --color-cream: #F4F1EA;
+  --color-accent: #FFFFFF;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+  --font-script: var(--font-great-vibes), cursive;
+}
+
+:root {
+  --background: #1B263B;
+  --foreground: #F4F1EA;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Utilities for Boarding Pass */
+@layer utilities {
+  .ticket-edge-top {
+    mask-image: radial-gradient(circle at 12px -2px, transparent 12px, black 13px);
+    mask-size: 24px 100%;
+    mask-repeat: repeat-x;
+    mask-position: top;
+  }
+  
+  .ticket-edge-bottom {
+    mask-image: radial-gradient(circle at 12px calc(100% + 2px), transparent 12px, black 13px);
+    mask-size: 24px 100%;
+    mask-repeat: repeat-x;
+    mask-position: bottom;
+  }
+
+  .ticket-cutout {
+    clip-path: polygon(
+      0% 0%, 
+      100% 0%, 
+      100% calc(100% - 15px), 
+      calc(100% - 15px) 100%, 
+      15px 100%, 
+      0% calc(100% - 15px)
+    );
+  }
+}
