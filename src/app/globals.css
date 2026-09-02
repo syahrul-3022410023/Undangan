@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-navy: #1B263B;
+  --color-navy: #1B3B2B;
+  --color-green: #1B3B2B;
   --color-cream: #F4F1EA;
   --color-accent: #FFFFFF;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-cormorant), serif;
   --font-script: var(--font-great-vibes), cursive;
+  --font-handwriting: var(--font-caveat), cursive;
+  --font-thin-handwriting: var(--font-sacramento), cursive;
 }
 
 :root {
-  --background: #1B263B;
+  --background: #1B3B2B;
   --foreground: #F4F1EA;
 }
 

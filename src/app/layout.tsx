@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Great_Vibes } from "next/font/google";
+import { Inter, Cormorant_Garamond, Great_Vibes, Caveat, Sacramento } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 
@@ -20,6 +20,18 @@ const greatVibes = Great_Vibes({
   subsets: ["latin"],
 });
 
+const caveat = Caveat({
+  variable: "--font-caveat",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const sacramento = Sacramento({
+  variable: "--font-sacramento",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Boarding Pass - Our Wedding",
   description: "A beautiful boarding pass themed wedding invitation.",
@@ -33,9 +45,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} ${greatVibes.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${greatVibes.variable} ${caveat.variable} ${sacramento.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-gray-900">
+      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-[#0D241A]">
         <SmoothScrolling>
           {children}
         </SmoothScrolling>

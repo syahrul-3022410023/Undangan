@@ -1,16 +1,27 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Plane, MapPin, Heart, Music, CalendarDays } from "lucide-react";
+import { Plane, MapPin, Heart, Music, CalendarDays, Gift, CreditCard, Copy, Check } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Polaroid from "@/components/ui/Polaroid";
 import PhotoStrip from "@/components/ui/PhotoStrip";
 import VintagePaperCard from "@/components/ui/VintagePaperCard";
+import EnvelopeIntro from "@/components/ui/Envelope";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 
 export default function Home() {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [copiedState, setCopiedState] = useState<{ [key: string]: boolean }>({});
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleCopy = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedState((prev) => ({ ...prev, [key]: true }));
+    setTimeout(() => {
+      setCopiedState((prev) => ({ ...prev, [key]: false }));
+    }, 2000);
+  };
 
   useEffect(() => {
     if (isCheckedIn && audioRef.current) {
@@ -56,11 +67,15 @@ export default function Home() {
   };
 
   const photos = [
-    "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
+    "/Foto1.JPG",
+    "/Foto2.JPG",
+    "/Foto3.JPG",
+    "/Foto4.JPG",
+    "/Foto5.JPG",
+    "/Foto6.JPG",
+    "/Foto7.JPG",
+    "/Foto8.JPG",
+    "/Foto9.JPG"
   ];
 
   const fadeUp = {
@@ -69,66 +84,23 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-gray-900 font-sans text-[#1B263B] selection:bg-[#1B263B] selection:text-[#F4F1EA] overflow-x-hidden">
+    <main className="relative min-h-screen bg-[#0D241A] font-sans text-[#1B3B2B] selection:bg-[#1B3B2B] selection:text-[#F4F1EA] overflow-x-hidden">
       {/* Background Jet Image (blurred) */}
-      <div className="fixed inset-0 z-0 bg-gray-800">
+      <div className="fixed inset-0 z-0 bg-[#0B1E16]">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 blur-sm mix-blend-overlay"
           style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=2070&auto=format&fit=crop")' }}
         />
-        <div className="absolute inset-0 bg-[#1B263B] opacity-60 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-[#1B3B2B] opacity-60 mix-blend-multiply"></div>
       </div>
 
       <AnimatePresence mode="wait">
         {!isCheckedIn ? (
-          <motion.div
-            key="intro-screen"
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-transparent text-[#F4F1EA]"
-            exit={{ opacity: 0, scale: 1.05, filter: "blur(5px)" }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          >
-            <div className="absolute inset-0 bg-[#1B263B]/60 backdrop-blur-md -z-10"></div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="flex flex-col items-center text-center p-6"
-            >
-              <div className="w-20 h-20 border border-white/40 rounded-full flex items-center justify-center mb-8 relative bg-[#1B263B]/50 backdrop-blur-md shadow-[0_0_50px_rgba(255,255,255,0.15)]">
-                <Plane size={32} className="text-white absolute z-10" />
-                <motion.div 
-                  className="w-full h-full rounded-full border-t-2 border-white"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div 
-                  className="absolute inset-0 rounded-full bg-white/10"
-                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </div>
-              
-              <div className="flex items-center gap-4 opacity-70 mb-5">
-                <div className="w-12 h-[1px] bg-white"></div>
-                <p className="uppercase text-[9px] md:text-[10px] tracking-[0.5em] text-white">Boarding Announcement</p>
-                <div className="w-12 h-[1px] bg-white"></div>
-              </div>
-              
-              <h1 className="font-script text-6xl md:text-7xl mb-3 drop-shadow-2xl">Silvi & Izul</h1>
-              <p className="font-serif italic text-lg md:text-xl opacity-80 mb-10 tracking-widest drop-shadow-md">Are getting married</p>
-              
-              <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.4)" }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsCheckedIn(true)}
-                className="px-8 py-3.5 bg-white text-[#1B263B] text-xs uppercase tracking-[0.4em] font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all cursor-pointer relative overflow-hidden group rounded-sm"
-              >
-                <span className="relative z-10 flex items-center gap-3">Check In <Plane size={14} className="rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"/></span>
-                <div className="absolute inset-0 bg-[#1B263B] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-              </motion.button>
-            </motion.div>
-          </motion.div>
+          <EnvelopeIntro 
+            onOpen={() => setIsCheckedIn(true)}
+            brideName="Silvi"
+            groomName="Izul"
+          />
         ) : (
           <motion.div
             key="ticket-screen"
@@ -136,30 +108,30 @@ export default function Home() {
           >
             <motion.div 
               className="w-full max-w-md drop-shadow-2xl flex flex-col mt-10 md:mt-0"
-              initial={{ opacity: 0, y: 150, scale: 0.95 }}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 1.2, type: "spring", damping: 25, delay: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               
               {/* TOP TICKET SECTION (CREAM) */}
-              <div className="bg-[#F4F1EA] text-[#1B263B] rounded-t-xl overflow-hidden relative pb-8 ticket-edge-bottom z-40">
+              <div className="bg-[#F4F1EA] text-[#1B3B2B] rounded-t-xl overflow-hidden relative pb-8 ticket-edge-bottom z-40">
                 {/* Perforated side dots */}
-                <div className="absolute top-12 -left-3 w-6 h-6 bg-[#1B263B] rounded-full"></div>
-                <div className="absolute top-12 -right-3 w-6 h-6 bg-[#1B263B] rounded-full"></div>
+                <div className="absolute top-12 -left-3 w-6 h-6 bg-[#1B3B2B] rounded-full"></div>
+                <div className="absolute top-12 -right-3 w-6 h-6 bg-[#1B3B2B] rounded-full"></div>
                 
-                <div className="p-6 md:p-8 pb-4 text-center border-b-2 border-dashed border-[#1B263B]/20 mx-4">
-                  {/* Changed to Navy since Cream bg */}
-                  <motion.p initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8 } } }} className="uppercase text-[10px] tracking-[0.2em] font-bold text-[#1B263B] mb-6 opacity-80">Tiket Pernikahan</motion.p>
+                <div className="p-6 md:p-8 pb-4 text-center border-b-2 border-dashed border-[#1B3B2B]/20 mx-4">
+                  {/* Changed to Green since Cream bg */}
+                  <motion.p initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8 } } }} className="uppercase text-[10px] tracking-[0.2em] font-bold text-[#1B3B2B] mb-6 opacity-80">Tiket Pernikahan</motion.p>
                   
                   <motion.div initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { delay: 0.7, duration: 0.8, type: "spring" } } }} className="flex justify-center mb-6">
-                    <div className="w-20 h-20 border border-[#1B263B] rounded-full flex items-center justify-center relative shadow-inner bg-[#F4F1EA] overflow-hidden">
-                      <Plane size={24} className="text-[#1B263B] relative z-10 transform -rotate-45" />
+                    <div className="w-20 h-20 border border-[#1B3B2B] rounded-full flex items-center justify-center relative shadow-inner bg-[#F4F1EA] overflow-hidden">
+                      <Plane size={24} className="text-[#1B3B2B] relative z-10 transform -rotate-45" />
                     </div>
                   </motion.div>
 
                   <motion.h1 initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { delay: 0.8, duration: 1.2 } } }} className="font-script text-6xl mb-6 leading-none">Silvi <span className="text-5xl opacity-80 mx-2">&</span> Izul</motion.h1>
 
-                  <motion.div initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { delay: 0.9, duration: 0.8 } } }} className="mx-auto grid grid-cols-2 text-center bg-[#1B263B] text-[#F4F1EA] p-4 rounded-sm text-xs shadow-md">
+                  <motion.div initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { delay: 0.9, duration: 0.8 } } }} className="mx-auto grid grid-cols-2 text-center bg-[#1B3B2B] text-[#F4F1EA] p-4 rounded-sm text-xs shadow-md">
                     <div className="flex items-center justify-center gap-3">
                       <CalendarDays size={18} className="opacity-50" />
                       <div className="flex flex-col items-start text-left">
@@ -181,8 +153,8 @@ export default function Home() {
                 </motion.div>
               </div>
 
-              {/* MIDDLE TICKET SECTION 1: MEMPELAI (NAVY) */}
-              <div className="bg-[#1B263B] text-[#F4F1EA] relative z-30 shadow-xl ticket-edge-bottom pb-10 mt-[-15px] overflow-hidden">
+              {/* MIDDLE TICKET SECTION 1: MEMPELAI (GREEN) */}
+              <div className="bg-[#1B3B2B] text-[#F4F1EA] relative z-30 shadow-xl ticket-edge-bottom pb-10 mt-[-15px] overflow-hidden">
                 {/* WOW Animated Cinematic Background + Love Watermark */}
                 <div className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-20" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }}></div>
                 <div className="absolute inset-0 pointer-events-none z-0">
@@ -236,22 +208,22 @@ export default function Home() {
               </div>
 
               {/* MIDDLE TICKET SECTION 2: GALLERY/SCRAPBOOK (CREAM) */}
-              <div className="bg-[#F4F1EA] text-[#1B263B] relative z-20 shadow-xl ticket-edge-bottom pb-8 mt-[-15px]">
+              <div className="bg-[#F4F1EA] text-[#1B3B2B] relative z-20 shadow-xl ticket-edge-bottom pb-8 mt-[-15px]">
                 {/* Dedicated Divider Row with Static Holes */}
                 <div className="relative w-full pt-10 pb-6 flex items-center justify-center">
                   {/* Left hole */}
-                  <div className="absolute top-1/2 -left-3 w-6 h-6 bg-[#1B263B] rounded-full -translate-y-1/2"></div>
+                  <div className="absolute top-1/2 -left-3 w-6 h-6 bg-[#1B3B2B] rounded-full -translate-y-1/2"></div>
                   
                   {/* Lines and Text */}
-                  <div className="flex-1 border-t border-[#1B263B]/20 ml-3"></div>
+                  <div className="flex-1 border-t border-[#1B3B2B]/20 ml-3"></div>
                   <h3 className="font-serif text-lg px-4 opacity-90">Our Love Story</h3>
-                  <div className="flex-1 border-t border-[#1B263B]/20 mr-3"></div>
+                  <div className="flex-1 border-t border-[#1B3B2B]/20 mr-3"></div>
                   
                   {/* Right hole */}
-                  <div className="absolute top-1/2 -right-3 w-6 h-6 bg-[#1B263B] rounded-full -translate-y-1/2"></div>
+                  <div className="absolute top-1/2 -right-3 w-6 h-6 bg-[#1B3B2B] rounded-full -translate-y-1/2"></div>
                 </div>
 
-                <div className="px-6 pb-10 text-center border-b border-dashed border-[#1B263B]/20 mx-4">
+                <div className="px-6 pb-10 text-center border-b border-dashed border-[#1B3B2B]/20 mx-4">
 
                   <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp}>
                     <div className="relative w-full flex flex-col items-center py-4">
@@ -265,8 +237,8 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* BOTTOM TICKET SECTION (NAVY) */}
-              <div className="bg-[#1B263B] text-[#F4F1EA] relative rounded-b-xl overflow-hidden z-10 shadow-2xl mt-[-15px]">
+              {/* BOTTOM TICKET SECTION (GREEN) */}
+              <div className="bg-[#1B3B2B] text-[#F4F1EA] relative rounded-b-xl overflow-hidden z-10 shadow-2xl mt-[-15px]">
                 {/* WOW Animated Cinematic Background + Watermark */}
                 <div className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-20" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }}></div>
                 <div className="absolute inset-0 pointer-events-none z-0">
@@ -282,15 +254,15 @@ export default function Home() {
                 <div className="absolute top-12 -left-3 w-6 h-6 bg-[#F4F1EA] rounded-full z-20"></div>
                 <div className="absolute top-12 -right-3 w-6 h-6 bg-[#F4F1EA] rounded-full z-20"></div>
                 
-                <div className="p-8 pt-14 space-y-12 relative z-10">
+                <div className="p-6 sm:p-8 pt-18 sm:pt-20 space-y-12 relative z-10">
                   
                   {/* Jadwal Acara */}
                   <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
                     <VintagePaperCard>
-                      <h3 className="font-script text-4xl mb-3 text-center text-[#1B263B] drop-shadow-sm">Detail Acara</h3>
-                      <div className="w-12 h-[1px] bg-[#1B263B]/20 mx-auto mb-6"></div>
+                      <h3 className="font-script text-4xl mb-3 text-center text-[#1B3B2B] drop-shadow-sm">Detail Acara</h3>
+                      <div className="w-12 h-[1px] bg-[#1B3B2B]/20 mx-auto mb-6"></div>
                       
-                      <div className="space-y-8 relative z-10 text-center text-[#1B263B]">
+                      <div className="space-y-8 relative z-10 text-center text-[#1B3B2B]">
                         <div>
                           <h4 className="font-serif tracking-widest uppercase text-sm font-bold mb-2">Akad Nikah</h4>
                           <div className="flex items-center justify-center gap-2 opacity-90 mb-1 text-xs font-medium">
@@ -299,7 +271,7 @@ export default function Home() {
                           <p className="opacity-70 text-xs">Pukul 09.00 WIB - Selesai</p>
                         </div>
                         
-                        <div className="w-8 h-[1px] bg-[#1B263B]/10 mx-auto"></div>
+                        <div className="w-8 h-[1px] bg-[#1B3B2B]/10 mx-auto"></div>
                         
                         <div>
                           <h4 className="font-serif tracking-widest uppercase text-sm font-bold mb-2">Resepsi</h4>
@@ -308,12 +280,16 @@ export default function Home() {
                           </div>
                           <p className="opacity-70 text-xs">Pukul 11.30 WIB - Selesai</p>
                         </div>
+
+                        <div className="w-full pt-6 sm:pt-8 border-t border-[#1B3B2B]/10">
+                          <CountdownTimer targetDate="2026-09-20T09:00:00" variant="light" />
+                        </div>
                       </div>
                     </VintagePaperCard>
                   </motion.div>
 
                   {/* Lokasi */}
-                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center py-10 sm:py-14 pb-12 sm:pb-16 my-2">
                     <h3 className="font-serif text-2xl mb-3 flex items-center justify-center gap-2"><MapPin size={20} className="text-white"/> Lokasi Acara</h3>
                     <p className="text-sm opacity-90 mb-1 font-medium">Sungegeneng RT 04 / RW 04</p>
                     <p className="text-xs opacity-70 mb-6 leading-relaxed">
@@ -323,24 +299,124 @@ export default function Home() {
                       href="https://maps.app.goo.gl/HomtUCga2LTCkctb6?g_st=ic" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-block px-8 py-3 bg-white text-[#1B263B] text-xs font-bold rounded-sm hover:bg-opacity-90 transition-all shadow-md"
+                      className="inline-block px-8 py-3 bg-white text-[#1B3B2B] text-xs font-bold rounded-sm hover:bg-opacity-90 transition-all shadow-md"
                     >
                       Buka Google Maps
                     </a>
                   </motion.div>
 
+              {/* MIDDLE TICKET SECTION 3: AMPLOP DIGITAL (CREAM) */}
+              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="bg-[#F4F1EA] text-[#1B3B2B] relative z-20 shadow-xl ticket-edge-bottom pb-8 mt-6 sm:mt-8">
+                {/* Dedicated Divider Row with Static Holes */}
+                <div className="relative w-full pt-10 pb-6 flex items-center justify-center">
+                  {/* Left hole */}
+                  <div className="absolute top-1/2 -left-3 w-6 h-6 bg-[#1B3B2B] rounded-full -translate-y-1/2"></div>
+                  
+                  {/* Lines and Text */}
+                  <div className="flex-1 border-t border-[#1B3B2B]/20 ml-3"></div>
+                  <h3 className="font-serif text-lg px-4 opacity-90 flex items-center gap-2">
+                    <Gift size={18} /> Amplop Digital
+                  </h3>
+                  <div className="flex-1 border-t border-[#1B3B2B]/20 mr-3"></div>
+                  
+                  {/* Right hole */}
+                  <div className="absolute top-1/2 -right-3 w-6 h-6 bg-[#1B3B2B] rounded-full -translate-y-1/2"></div>
+                </div>
+
+                <div className="px-6 sm:px-8 pb-8 text-center border-b border-dashed border-[#1B3B2B]/20 mx-4">
+                  <p className="text-xs opacity-75 mb-6 leading-relaxed font-light text-[#1B3B2B]">
+                    Doa restu Anda merupakan karunia terbesar bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat menyalurkannya melalui:
+                  </p>
+
+                  <div className="space-y-4 text-left">
+                    {/* Bank Mandiri - Groom */}
+                    <div className="bg-white text-[#1B3B2B] p-4.5 sm:p-6 rounded-2xl shadow-sm border border-[#1B3B2B]/20 relative overflow-hidden transition-all hover:shadow-md">
+                      <div className="flex justify-between items-center mb-3 pb-2.5 border-b border-dashed border-[#1B3B2B]/20">
+                        <span className="text-xs font-serif font-bold uppercase tracking-widest text-[#1B3B2B] flex items-center gap-2">
+                          <CreditCard size={15} className="text-[#1B3B2B]" /> Bank Mandiri
+                        </span>
+                        <span className="text-[9px] uppercase tracking-widest px-2.5 py-0.5 border border-[#1B3B2B]/20 rounded-full font-bold text-[#1B3B2B]/75 bg-[#1B3B2B]/5">
+                          GIFT PASS
+                        </span>
+                      </div>
+
+                      <div className="my-3">
+                        <p className="text-[9px] uppercase tracking-[0.2em] font-serif font-bold text-[#1B3B2B]/60 mb-1">Nomor Rekening</p>
+                        <p className="font-sans text-xl sm:text-2xl font-bold tracking-tight sm:tracking-wider text-[#1B3B2B] my-1">1420025622803</p>
+                        <p className="font-serif italic text-xs text-[#1B3B2B]/80 mt-1">a.n ZULKARNAIN AJI PUTRA</p>
+                      </div>
+
+                      <button
+                        onClick={() => handleCopy("1420025622803", "mandiri")}
+                        className="w-full py-2.5 px-4 bg-[#1B3B2B] text-[#F4F1EA] text-xs font-semibold rounded-xl tracking-wider uppercase flex items-center justify-center gap-2 hover:bg-[#1B3B2B]/90 transition-all active:scale-[0.98] shadow-sm cursor-pointer mt-4"
+                      >
+                        {copiedState["mandiri"] ? (
+                          <>
+                            <Check size={15} className="text-emerald-400" />
+                            <span>Tersalin ke Clipboard!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={15} />
+                            <span>Salin No. Rekening</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Bank BCA - Bride */}
+                    <div className="bg-white text-[#1B3B2B] p-4.5 sm:p-6 rounded-2xl shadow-sm border border-[#1B3B2B]/20 relative overflow-hidden transition-all hover:shadow-md">
+                      <div className="flex justify-between items-center mb-3 pb-2.5 border-b border-dashed border-[#1B3B2B]/20">
+                        <span className="text-xs font-serif font-bold uppercase tracking-widest text-[#1B3B2B] flex items-center gap-2">
+                          <CreditCard size={15} className="text-[#1B3B2B]" /> Bank BCA
+                        </span>
+                        <span className="text-[9px] uppercase tracking-widest px-2.5 py-0.5 border border-[#1B3B2B]/20 rounded-full font-bold text-[#1B3B2B]/75 bg-[#1B3B2B]/5">
+                          GIFT PASS
+                        </span>
+                      </div>
+
+                      <div className="my-3">
+                        <p className="text-[9px] uppercase tracking-[0.2em] font-serif font-bold text-[#1B3B2B]/60 mb-1">Nomor Rekening</p>
+                        <p className="font-sans text-xl sm:text-2xl font-bold tracking-tight sm:tracking-wider text-[#1B3B2B] my-1">6170669612</p>
+                        <p className="font-serif italic text-xs text-[#1B3B2B]/80 mt-1">a.n Silvi Ana</p>
+                      </div>
+
+                      <button
+                        onClick={() => handleCopy("6170669612", "bca")}
+                        className="w-full py-2.5 px-4 bg-[#1B3B2B] text-[#F4F1EA] text-xs font-semibold rounded-xl tracking-wider uppercase flex items-center justify-center gap-2 hover:bg-[#1B3B2B]/90 transition-all active:scale-[0.98] shadow-sm cursor-pointer mt-4"
+                      >
+                        {copiedState["bca"] ? (
+                          <>
+                            <Check size={15} className="text-emerald-400" />
+                            <span>Tersalin ke Clipboard!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={15} />
+                            <span>Salin No. Rekening</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center pt-4 mx-4">
+                  <p className="uppercase text-[9px] tracking-widest font-medium opacity-50">Digital Gift</p>
+                </div>
+              </motion.div>
+
                   {/* Ucapan Penutup */}
-                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center px-4">
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="text-center px-4">
                     <p className="font-serif text-xs opacity-70 leading-relaxed italic mb-6">
                       "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."<br/>(QS. Ar-Rum: 21)
                     </p>
                   </motion.div>
 
-                  <div className="border-t border-dashed border-[#F4F1EA]/20 pt-8 text-center pb-2">
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} className="border-t border-dashed border-[#F4F1EA]/20 pt-8 text-center pb-2">
                     <Plane size={20} className="mx-auto text-white mb-3" />
                     <h1 className="font-script text-4xl mb-2 text-white">Terima Kasih</h1>
                     <p className="text-[10px] uppercase tracking-[0.2em] font-medium opacity-60">Sampai Jumpa Nanti!</p>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
@@ -358,7 +434,7 @@ export default function Home() {
       {isCheckedIn && (
         <button 
           onClick={toggleMusic}
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white text-[#1B263B] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white text-[#1B3B2B] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all hover:scale-110"
         >
           {isPlaying ? <Music size={20} className="animate-pulse" /> : <Music size={20} className="opacity-70" />}
         </button>

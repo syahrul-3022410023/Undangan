@@ -14,7 +14,7 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
     // Start slideshow after a delay (2.5s for paper slide + 1.5s for initial fade-in)
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % photos.length);
+        setCurrentIndex((prev) => (prev + 3) % photos.length);
       }, 3000);
       return () => clearInterval(interval);
     }, 4500);
@@ -27,17 +27,11 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
       {/* Printer Slot */}
       <div className="w-[300px] h-10 bg-gradient-to-b from-gray-200 to-gray-300 rounded-lg shadow-inner flex items-center justify-center p-1.5 relative z-20 border-b border-white/60">
         <div className="w-[260px] h-3 bg-gray-900 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,1)] relative z-10 flex justify-center">
-          {/* This empty space represents the dark slit */}
+          {/* Slit */}
         </div>
       </div>
 
       {/* Wrapper to clip the top so it comes exactly from the slot */}
-      {/* We set z-30 so it is ABOVE the slot, but we clip it so it only shows from the middle of the black hole downwards.
-          Since it's above the slot, it will cover the bottom half of the black hole and the bottom gray lip.
-          This creates a perfect illusion of paper sticking out of the hole! 
-          The slot is h-10 (40px). The hole is centered, so its vertical center is at 20px. 
-          We pull the wrapper up by -mt-[20px]. So top=0 of wrapper is exactly at the center of the slot.
-      */}
       <div className="w-full flex justify-center -mt-[20px] z-30" style={{ clipPath: "inset(0 -100px -100px -100px)" }}>
         {/* Photo Strip */}
         <motion.div 
@@ -55,8 +49,10 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
               const photoIndex = (currentIndex + slotIndex) % photos.length;
               
               return (
-                <div key={slotIndex} className="w-full aspect-[4/3] bg-gray-200 overflow-hidden relative shadow-sm">
-                  {/* The initial fade in for the first time */}
+                <div 
+                  key={slotIndex} 
+                  className="w-full aspect-[4/3] bg-gray-200 overflow-hidden relative shadow-sm"
+                >
                   <motion.div
                     initial={{ opacity: 0, filter: "blur(5px)" }}
                     whileInView={{ opacity: 1, filter: "blur(0px)" }}
@@ -71,17 +67,11 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
                         initial={{ opacity: 0, scale: 1.05 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.8, delay: slotIndex * 0.12 }}
                         className="w-full h-full object-cover grayscale-[15%] absolute inset-0"
                       />
                     </AnimatePresence>
                   </motion.div>
-
-                  {slotIndex === 2 && (
-                    <div className="absolute bottom-2 left-3 z-20 pointer-events-none">
-                      <p className="font-script text-white text-4xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-none">Photo<br/>Dump</p>
-                    </div>
-                  )}
                 </div>
               );
             })}

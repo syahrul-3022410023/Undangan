@@ -3,14 +3,7 @@ import { Heart } from 'lucide-react';
 
 export default function VintagePaperCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative w-full mt-14 mb-8">
-      {/* Wax Seal Image at the top center */}
-      <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 z-20 drop-shadow-[0_8px_12px_rgba(0,0,0,0.6)]">
-        <div className="w-[85px] h-[85px] rounded-full overflow-hidden shadow-inner flex items-center justify-center">
-          <img src="/seal.png" alt="Wax Seal" className="w-full h-full object-cover scale-[1.05]" />
-        </div>
-      </div>
-
+    <div className="relative w-full my-6">
       {/* SVG Filters definitions for torn edge and texture */}
       <svg width="0" height="0" className="absolute pointer-events-none">
         <defs>
@@ -22,9 +15,7 @@ export default function VintagePaperCard({ children }: { children: React.ReactNo
       </svg>
 
       {/* Actual Paper Container */}
-      {/* We use a wrapper to apply the drop-shadow separately from the displacement map, 
-          because doing them together can sometimes clip the shadow. */}
-      <div className="relative drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)]">
+      <div className="relative drop-shadow-[0_10px_20px_rgba(0,0,0,0.3)]">
         {/* Background Layer with Torn Edge Filter */}
         <div 
           className="absolute inset-0 bg-[#F4F1EA] overflow-hidden"
@@ -37,8 +28,8 @@ export default function VintagePaperCard({ children }: { children: React.ReactNo
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_transparent_50%,_rgba(0,0,0,0.05)_100%)]"></div>
         </div>
         
-        {/* Card Content (NO FILTER) */}
-        <div className="relative z-10 text-[#1B263B] w-full pt-16 pb-10 px-8">
+        {/* Card Content */}
+        <div className="relative z-10 text-[#1B3B2B] w-full pt-10 sm:pt-12 pb-10 px-6 sm:px-10">
           {children}
         </div>
       </div>
