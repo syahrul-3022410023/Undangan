@@ -17,7 +17,7 @@ interface TimeLeft {
 }
 
 export default function CountdownTimer({
-  targetDate = "2026-09-20T09:00:00",
+  targetDate = "2026-09-20T10:00:00",
   className = "",
   variant = "navy"
 }: CountdownTimerProps) {
@@ -57,7 +57,7 @@ export default function CountdownTimer({
 
   const isNavy = variant === "navy";
 
-  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Silvi+%26+Izul&dates=20260920T020000Z/20260920T060000Z&details=Undangan+Pernikahan+Silvi+%26+Izul&location=Sungegeneng+RT+04+/+RW+04,+Kec.+Sekaran,+Kab.+Lamongan,+Jawa+Timur`;
+  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Silvi+Ana+%26+Zulkarnain&dates=20260920T030000Z/20260920T070000Z&details=Undangan+Pernikahan+Silvi+Ana+%26+Zulkarnain&location=004/004+Desa+Sungegeneng,+Kec.+Sekaran,+Kab.+Lamongan`;
 
   if (!isMounted) {
     return (

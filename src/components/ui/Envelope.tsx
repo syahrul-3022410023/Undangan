@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Plane } from "lucide-react";
+import { Plane, MailOpen } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 
 interface EnvelopeIntroProps {
@@ -13,8 +13,8 @@ interface EnvelopeIntroProps {
 
 export default function EnvelopeIntro({
   onOpen,
-  brideName = "Silvi",
-  groomName = "Izul"
+  brideName = "Silvi Ana",
+  groomName = "Zulkarnain"
 }: EnvelopeIntroProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +25,7 @@ export default function EnvelopeIntro({
     // Sequence: Top flap opens -> Paper sheet slides up -> Transition to main page
     setTimeout(() => {
       onOpen();
-    }, 1200);
+    }, 950);
   };
 
   return (
@@ -80,13 +80,13 @@ export default function EnvelopeIntro({
         onClick={handleOpen}
         style={{ perspective: "1200px" }}
       >
-        <div className="relative w-[300px] sm:w-[350px] h-[210px] sm:h-[240px]">
+        <div className="relative w-[300px] sm:w-[350px] aspect-[35/24]">
           {/* Warm Cream Envelope Interior Backing (Matches envelope paper) */}
           <div className="absolute inset-0 bg-[#F4F1EA] rounded-md shadow-[0_25px_60px_rgba(0,0,0,0.6)]"></div>
 
           {/* TOP FLAP (Flipping Open 180deg) */}
           <motion.div 
-            className="absolute inset-x-0 top-0 h-[120px] sm:h-[135px] bg-[#E2DCCB] origin-top pointer-events-none rounded-t-md z-30 overflow-hidden"
+            className="absolute inset-x-0 top-0 h-[56.25%] bg-[#E2DCCB] origin-top pointer-events-none rounded-t-md z-30 overflow-hidden"
             style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }}
             animate={isOpen ? { rotateX: 180, zIndex: 5 } : { rotateX: 0, zIndex: 30 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -95,21 +95,21 @@ export default function EnvelopeIntro({
             <div className="absolute inset-0 bg-[#F4F1EA]"></div>
           </motion.div>
 
-          {/* LEMBARAN KERTAS (Tucked inside when closed, expands to cover V-pocket when open) */}
+          {/* LEMBARAN KERTAS (100% Responsive Percentage-Based Alignment) */}
           <motion.div 
-            className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 bg-[#F4F1EA] text-[#1B3B2B] rounded-t-lg p-4 sm:p-5 flex flex-col items-center justify-start border border-[#D5CCA8] shadow-2xl z-20 pointer-events-none overflow-hidden"
+            className="absolute top-[6%] left-[4%] right-[4%] bg-[#F4F1EA] text-[#1B3B2B] rounded-t-[18px] p-4 sm:p-5 flex flex-col items-center justify-start border border-[#D5CCA8] shadow-2xl z-20 pointer-events-none overflow-hidden"
             animate={isOpen 
-              ? { y: -130, height: "calc(100% + 45px)", scale: 1.02 } 
-              : { y: 0, height: "calc(100% - 24px)", scale: 1 }
+              ? { y: "-28.5%", height: "120%", scale: 1.01 } 
+              : { y: 0, height: "88%", scale: 1 }
             }
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Paper Texture line borders */}
-            <div className="w-full h-[165px] sm:h-[185px] border border-dashed border-[#1B3B2B]/25 p-3 sm:p-4 flex flex-col items-center justify-center text-center rounded-t-md shrink-0">
-              <Plane size={22} className="text-[#1B3B2B] mb-1 -rotate-45" />
+            <div className="w-full h-full border border-dashed border-[#1B3B2B]/25 p-3 sm:p-4 pt-3 sm:pt-4 flex flex-col items-center justify-start text-center rounded-t-[14px] shrink-0">
+              <Plane size={20} className="text-[#1B3B2B] mb-0.5 -rotate-45" />
               <p className="uppercase text-[9px] tracking-[0.3em] font-bold text-[#1B3B2B]/70">Boarding Pass</p>
-              <h2 className="font-script text-3xl sm:text-4xl text-[#1B3B2B] mt-0.5">{brideName} & {groomName}</h2>
-              <p className="font-serif italic text-[11px] text-[#1B3B2B]/80 mt-1">20 September 2026</p>
+              <h2 className="font-script text-3xl sm:text-4xl text-[#1B3B2B] my-0.5">{brideName} & {groomName}</h2>
+              <p className="font-serif italic text-[11px] text-[#1B3B2B]/80">20 September 2026</p>
             </div>
           </motion.div>
 
@@ -145,6 +145,22 @@ export default function EnvelopeIntro({
             )}
           </AnimatePresence>
         </div>
+      </motion.div>
+
+      {/* BOTTOM SECTION: Interactive "Buka Undangan" Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={isOpen ? { opacity: 0, scale: 0.9, y: 15 } : { opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="relative z-10 mt-2"
+      >
+        <button
+          onClick={handleOpen}
+          className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#F4F1EA] text-[#1B3B2B] font-serif text-xs sm:text-sm font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(0,0,0,0.35)] border border-[#F4F1EA]/50 hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+        >
+          <MailOpen size={16} className="text-[#1B3B2B] transition-transform group-hover:-rotate-12" />
+          <span>Buka Undangan</span>
+        </button>
       </motion.div>
     </motion.div>
   );

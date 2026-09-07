@@ -98,8 +98,8 @@ export default function Home() {
         {!isCheckedIn ? (
           <EnvelopeIntro 
             onOpen={() => setIsCheckedIn(true)}
-            brideName="Silvi"
-            groomName="Izul"
+            brideName="Silvi Ana"
+            groomName="Zulkarnain"
           />
         ) : (
           <motion.div
@@ -129,7 +129,7 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  <motion.h1 initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { delay: 0.8, duration: 1.2 } } }} className="font-script text-6xl mb-6 leading-none">Silvi <span className="text-5xl opacity-80 mx-2">&</span> Izul</motion.h1>
+                  <motion.h1 initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { delay: 0.8, duration: 1.2 } } }} className="font-script text-5xl sm:text-6xl mb-6 leading-none">Silvi Ana <span className="text-4xl sm:text-5xl opacity-80 mx-1">&</span> Zulkarnain</motion.h1>
 
                   <motion.div initial="hidden" animate="visible" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { delay: 0.9, duration: 0.8 } } }} className="mx-auto grid grid-cols-2 text-center bg-[#1B3B2B] text-[#F4F1EA] p-4 rounded-sm text-xs shadow-md">
                     <div className="flex items-center justify-center gap-3">
@@ -181,8 +181,8 @@ export default function Home() {
                       initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.6 }} 
                       variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } } }}
                     >
-                      <h2 className="font-script text-6xl text-white -mb-1 pt-4">Silvi</h2>
-                      <p className="font-serif text-sm opacity-80 italic mt-1">Putri dari Bapak Fulan & Ibu Fulanah</p>
+                      <h2 className="font-script text-5xl sm:text-6xl text-white -mb-1 pt-4">Silvi Ana</h2>
+                      <p className="font-serif text-sm opacity-80 italic mt-1">Putri dari Bapak Wal Ikrom & Ibu Siti Urifah</p>
                     </motion.div>
                     
                     <motion.div 
@@ -197,8 +197,8 @@ export default function Home() {
                       initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.6 }}
                       variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 1, delay: 0.6, ease: "easeOut" } } }}
                     >
-                      <h2 className="font-script text-6xl text-white -mb-1 pt-4">Izul</h2>
-                      <p className="font-serif text-sm opacity-80 italic mt-1">Putra dari Bapak Fulan & Ibu Fulanah</p>
+                      <h2 className="font-script text-5xl sm:text-6xl text-white -mb-1 pt-4">Zulkarnain</h2>
+                      <p className="font-serif text-sm opacity-80 italic mt-1">Putra dari Bapak Suwaji Handoyo & Ibu Agus Triswandari</p>
                     </motion.div>
                   </div>
                 </div>
@@ -268,7 +268,7 @@ export default function Home() {
                           <div className="flex items-center justify-center gap-2 opacity-90 mb-1 text-xs font-medium">
                             Minggu, 20 September 2026
                           </div>
-                          <p className="opacity-70 text-xs">Pukul 09.00 WIB - Selesai</p>
+                          <p className="opacity-70 text-xs">Pukul 10.00 WIB - Selesai</p>
                         </div>
                         
                         <div className="w-8 h-[1px] bg-[#1B3B2B]/10 mx-auto"></div>
@@ -278,11 +278,11 @@ export default function Home() {
                           <div className="flex items-center justify-center gap-2 opacity-90 mb-1 text-xs font-medium">
                             Minggu, 20 September 2026
                           </div>
-                          <p className="opacity-70 text-xs">Pukul 11.30 WIB - Selesai</p>
+                          <p className="opacity-70 text-xs">Pukul 13.00 WIB - Selesai</p>
                         </div>
 
                         <div className="w-full pt-6 sm:pt-8 border-t border-[#1B3B2B]/10">
-                          <CountdownTimer targetDate="2026-09-20T09:00:00" variant="light" />
+                          <CountdownTimer targetDate="2026-09-20T10:00:00" variant="light" />
                         </div>
                       </div>
                     </VintagePaperCard>
@@ -291,7 +291,7 @@ export default function Home() {
                   {/* Lokasi */}
                   <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center py-10 sm:py-14 pb-12 sm:pb-16 my-2">
                     <h3 className="font-serif text-2xl mb-3 flex items-center justify-center gap-2"><MapPin size={20} className="text-white"/> Lokasi Acara</h3>
-                    <p className="text-sm opacity-90 mb-1 font-medium">Sungegeneng RT 04 / RW 04</p>
+                    <p className="text-sm opacity-90 mb-1 font-medium">RT 004 / RW 004 Desa Sungegeneng</p>
                     <p className="text-xs opacity-70 mb-6 leading-relaxed">
                       Kec. Sekaran, Kab. Lamongan, Jawa Timur
                     </p>
