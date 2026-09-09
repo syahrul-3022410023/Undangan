@@ -67,15 +67,15 @@ export default function Home() {
   };
 
   const photos = [
-    "/Foto1.jpg",
-    "/Foto2.jpg",
-    "/Foto3.jpg",
-    "/Foto4.jpg",
-    "/Foto5.jpg",
-    "/Foto6.jpg",
-    "/Foto7.jpg",
-    "/Foto8.jpg",
-    "/Foto9.jpg"
+    "/Foto1.jpeg",
+    "/Foto2.jpeg",
+    "/Foto3.jpeg",
+    "/Foto4.jpeg",
+    "/Foto5.jpeg",
+    "/Foto6.jpeg",
+    "/Foto7.jpeg",
+    "/Foto8.jpeg",
+    "/Foto9.jpeg"
   ];
 
   const fadeUp = {
